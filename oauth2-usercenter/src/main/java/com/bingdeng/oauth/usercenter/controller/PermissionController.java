@@ -1,0 +1,33 @@
+package com.bingdeng.oauth.usercenter.controller;
+
+import com.bingdeng.oauth.common.vo.Result;
+import com.bingdeng.oauth.usercenter.entity.SysMenu;
+import com.bingdeng.oauth.usercenter.service.PermissionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+
+/**
+ * Created with IntelliJ IDEA.
+ * Description:
+ * User: Mr.Yangxiufeng
+ * Date: 2018-06-13
+ * Time: 10:28
+ */
+@RestController
+@RequestMapping("permission")
+public class PermissionController {
+    @Autowired
+    private PermissionService permissionService;
+    @GetMapping("getRolePermission/{roleId}")
+    public Result getRolePermission(@PathVariable("roleId") Integer roleId){
+        List<SysMenu> menuList = permissionService.getPermissionsByRoleId(roleId);
+        return Result.ok().setData(menuList);
+    }
+
+}
